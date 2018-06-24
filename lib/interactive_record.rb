@@ -6,12 +6,14 @@ class InteractiveRecord
     self.to_s.downcase.pluralize
   end
 
-  def self.column_name
+  def self.column_names
     DB[:conn].results_as_hash = true
 
     sql = "pragma table_info('#{table_name}')"
 
     table_info = DB[:conn].execute(sql)
+    column_names = []
+    table_info.each do |row|
       column_names << row["name"]
     end
     column_names.compact
@@ -56,4 +58,5 @@ class InteractiveRecord
     sql = "SELECT * FROM #{self.table_name} WHERE #{hash_key} = '#{hash_value}'"
     DB[:conn].execute(sql)
   end
+
 end
