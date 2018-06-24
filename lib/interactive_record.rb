@@ -56,5 +56,3 @@ class InteractiveRecord
     sql = "SELECT * FROM #{self.table_name} WHERE #{hash_key} = '#{hash_value}'"
     DB[:conn].execute(sql)
   end
-end
-end
